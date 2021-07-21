@@ -1,0 +1,22 @@
+version: '3'
+services:
+  php-apache:
+    build: ./php-apache/
+    volumes:
+      - ./html:/var/www/html
+    ports:
+      - 8080:80
+    container_name: web
+  mysql: # MySQL
+    build: ./mysql/ # Dockerfileからビルドすることを示している
+    volumes: # データを永続化させるために必要 ないとデータが消える
+      - "./mysql/data:/var/lib/mysql"
+      - "./mysql/init:/docker-entrypoint-initdb.d" # 初期データをマウントする場所
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password 
+      - MYSQL_DATABASE=mydb 
+      - MYSQL_USER=hoge 
+      - MYSQL_PASSWORD=password 
+    container_name: db # コンテナの名前
+    ports:
+      - 3306:3306
