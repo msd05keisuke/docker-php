@@ -1,5 +1,3 @@
-USE mydb;
-
 use mydb;
 
 CREATE TABLE users (
